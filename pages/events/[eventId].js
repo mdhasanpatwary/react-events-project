@@ -1,18 +1,16 @@
 // import { getEventById } from "../../dummy-data";
-import { getEventById, getAllEvents } from "../../helpers/api-util";
+import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
 import { Fragment } from "react";
 import EventSummery from "../../components/event-detail/event-summary";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
-import ErrorAlert from "../../components/ui/error-alert";
-import { useRouter } from "next/router";
 
 function EventDetailsPage({ event }) {
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No Event Found!</p>
-      </ErrorAlert>
+      <div>
+        <h2>Loading...</h2>
+      </div>
     );
   }
   return (
@@ -41,14 +39,15 @@ export async function getStaticProps(context) {
     props: {
       event: event,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const allEvents = await getAllEvents();
+  const allEvents = await getFeaturedEvents();
   const paths = allEvents.map((event) => ({ params: { eventId: event.id } }));
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 }
