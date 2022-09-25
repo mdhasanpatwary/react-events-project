@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import EventSummery from "../../components/event-detail/event-summary";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
+import Head from "next/head";
 
 function EventDetailsPage({ event }) {
   if (!event) {
@@ -15,6 +16,10 @@ function EventDetailsPage({ event }) {
   }
   return (
     <Fragment>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </Head>
       <EventSummery title={event.title} />
       <EventLogistics
         date={event.date}
