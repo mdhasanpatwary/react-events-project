@@ -5,6 +5,7 @@ import EventSummery from "../../components/event-detail/event-summary";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import Head from "next/head";
+import Comments from "../../components/input/comments";
 
 function EventDetailsPage({ event }) {
   if (!event) {
@@ -30,6 +31,7 @@ function EventDetailsPage({ event }) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </Fragment>
   );
 }
